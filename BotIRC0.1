@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 
     my_send(sockfd, "NICK ESGIBOT\r\n", debug);
     my_send(sockfd, "USER ESGIBOT 8 * : BOT ESGI\r\n", debug);
-    my_send(sockfd, "JOIN #kikoo\r\n", debug);
+    my_send(sockfd, "JOIN #esgi\r\n", debug);
   //  Channel(sockfd, *out,debug);
     while(1) {
         recvline[0] = 0;
@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
               if (strstr(recvline, "OFF") != NULL) {
                 out[0] = 0;
                 pos = strstr(recvline, " ")+1;
-                sprintf(out, "part #kikoo\r\n");
+                sprintf(out, "part #esgi\r\n");
                 my_send(sockfd, out, debug);
 
             }
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
             }
            // my_send(sockfd, "JOIN #kikoo\r\n", debug);
         }
-        my_send(sockfd, "JOIN #kikoo\r\n", debug);
+        my_send(sockfd, "JOIN #esgi\r\n", debug);
     }
    //  my_send(sockfd, "JOIN #kikoo\r\n", debug);
     exit(0);
