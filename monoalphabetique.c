@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-//fonction d'affichage du menu avec récuperation du choix de l'action: chiffrage ou dechiffrage
+//fonction d'affichage du menu avec rÃ©cuperation du choix de l'action: chiffrage ou dechiffrage
 int Menu()
 {
     int choix = 0;
@@ -13,18 +13,18 @@ int Menu()
      }
      return choix;
 }
-//fonction de récupération de la clé de chiffrage
+//fonction de rÃ©cupÃ©ration de la clÃ© de chiffrage
 int Key()
 {
     int key = 0;
-    while (key < 1 || key > 25)//test sur la clé, entier positif attendu
+    while (key < 1 || key > 25)//test sur la clÃ©, entier positif attendu
     {
-        printf("\nQuelle clef voulez vous? Elle represente le decalage dans l'alphabet, elle doit être comprise entre 1 et 25\n");
+        printf("\nQuelle clef voulez vous? Elle represente le decalage dans l'alphabet, elle doit Ãªtre comprise entre 1 et 25\n");
         scanf("%d", &key);
     }
     return key;
 }
-//fonction de chiffrage et dechiffrage, on y indique le fichier source et destination et la clé renseignée avant
+//fonction de chiffrage et dechiffrage, on y indique le fichier source et destination et la clÃ© renseignÃ©e avant
 void Chiffrage(FILE *texteSource, FILE *texteDest, signed key)
 {
     char chaineAlpha[26] = "abcdefghijklmnopqrstuvwxyz";
@@ -33,13 +33,13 @@ void Chiffrage(FILE *texteSource, FILE *texteDest, signed key)
 
     do
     {
-        //recuperation d'un caractere du texte passé en minuscule pour analyse / la boucle permet d'analyser tous les caractères du texte
+        //recuperation d'un caractere du texte passÃ© en minuscule pour analyse / la boucle permet d'analyser tous les caractÃ¨res du texte
         caractere = fgetc(texteSource);
         caractere = tolower(caractere);
         i = 0;
         do
         {
-            //identification de la lettre à chiffrer ou dechiffrer
+            //identification de la lettre Ã  chiffrer ou dechiffrer
             if (caractere == chaineAlpha[i])
             {
                 if (i + key > 25)
@@ -54,7 +54,7 @@ void Chiffrage(FILE *texteSource, FILE *texteDest, signed key)
                 {
                     i = i + key;
                 }
-            //ecriture de la lettre chiffrée dans un deuxième fichier: (lettre chiffrée pour le chiffrement / lettre Claire pour le dechiffrement)
+            //ecriture de la lettre chiffrÃ©e dans un deuxiÃ¨me fichier: (lettre chiffrÃ©e pour le chiffrement / lettre Claire pour le dechiffrement)
             fputc(chaineAlpha[i], texteDest);
             i = 26;
             }
@@ -62,7 +62,7 @@ void Chiffrage(FILE *texteSource, FILE *texteDest, signed key)
             {
                 if(i == 25)
                 {
-                fputc(caractere, texteDest);//cas particulier des caractères spéciaux (ou espaces): je les recopie tel quel
+                fputc(caractere, texteDest);//cas particulier des caractÃ¨res spÃ©ciaux (ou espaces): je les recopie tel quel
                 i++;
                 }
                 else
@@ -76,22 +76,22 @@ void Chiffrage(FILE *texteSource, FILE *texteDest, signed key)
 
 int main()
 {
-    signed key = 0;//clé de chiffrement: variable qui va récuperer la clé du user
+    signed key = 0;//clÃ© de chiffrement: variable qui va rÃ©cuperer la clÃ© du user
     FILE* texteClair = NULL;//fichier qui contient le message Clair
-    FILE* texteChiff = NULL;//fichier qui contient le message chiffré
+    FILE* texteChiff = NULL;//fichier qui contient le message chiffrÃ©
 
     switch(Menu())
     {
         case 1:
-            //récupération de la clé auprès de l'utilisateur
+            //rÃ©cupÃ©ration de la clÃ© auprÃ¨s de l'utilisateur
             key = Key();
-            //ouverture des fichiers: pour le chiffrage message clair en lecture et message chiffré en écriture (avec suppression du contenu précédent)
+            //ouverture des fichiers: pour le chiffrage message clair en lecture et message chiffrÃ© en Ã©criture (avec suppression du contenu prÃ©cÃ©dent)
             texteClair = fopen("lettre.txt", "r");
             texteChiff = fopen("lettreChiffre.txt", "w+");
 
             if (texteClair != NULL && texteChiff != NULL)//test bonne ouverture des fichiers avant action
             {
-                //appel de ma fonction en précisant quel est mon fichier source et mon fichier destination + la clé de chiffrage
+                //appel de ma fonction en prÃ©cisant quel est mon fichier source et mon fichier destination + la clÃ© de chiffrage
                 Chiffrage(texteClair, texteChiff, key);
                 printf("Le chiffrage est effectif!\n");
             }
@@ -102,9 +102,9 @@ int main()
             break;
         case 2:
             key = Key();
-            //clé convertie en negatif car l'on veut déchiffrer, déplacement contraire dans l'alphabet
+            //clÃ© convertie en negatif car l'on veut dÃ©chiffrer, dÃ©placement contraire dans l'alphabet
             key = -key;
-            //ouverture des fichiers: pour le chiffrage message chiffré en lecture et message clair en écriture
+            //ouverture des fichiers: pour le chiffrage message chiffrÃ© en lecture et message clair en Ã©criture
             texteClair = fopen("lettre.txt", "w+");
             texteChiff = fopen("lettreChiffre.txt", "r");
 
