@@ -4,7 +4,7 @@
 #include <string.h>
 #define LIMITE 100
 
-//fonction d'affichage du menu avec récuperation du choix de l'action: chiffrage ou dechiffrage
+//fonction d'affichage du menu avec rÃ©cuperation du choix de l'action: chiffrage ou dechiffrage
 int Menu()
 {
     int choix = 0;
@@ -15,27 +15,27 @@ int Menu()
      }
      return choix;
 }
-//fonction de chiffrage où l'on indique: fichier source analysé + fichier de destination pour le texte chiffré + clé de chiffrement
+//fonction de chiffrage oÃ¹ l'on indique: fichier source analysÃ© + fichier de destination pour le texte chiffrÃ© + clÃ© de chiffrement
 void Chiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
 {
     char chaineAlpha[26] = "abcdefghijklmnopqrstuvwxyz";
     char caractere = 0;
-    int i = 0;//compteur chaine alphabétique
-    int j = 0;//compteur clé de chiffrage
-    int z = 0;//variable qui contiendra la position de la lettre de la clé dans l'alphabet
-    int y = 0;//variable qui contiendra la position de la lettre chiffrée
+    int i = 0;//compteur chaine alphabÃ©tique
+    int j = 0;//compteur clÃ© de chiffrage
+    int z = 0;//variable qui contiendra la position de la lettre de la clÃ© dans l'alphabet
+    int y = 0;//variable qui contiendra la position de la lettre chiffrÃ©e
     int x = 0;//variable qui contiendra la position de la lettre claire
 
     do
     {
-        //recuperation d'un caractère du texte source passé en minuscule pour analyse
+        //recuperation d'un caractÃ¨re du texte source passÃ© en minuscule pour analyse
         caractere = fgetc(texteSource);
         caractere = tolower(caractere);
 
-        //réinitialisation du compteur i à 0 dans la boucle do
+        //rÃ©initialisation du compteur i Ã  0 dans la boucle do
         i = 0;
 
-        //vérification: si l'on est arrivé à la fin du mot de la clé de chiffrage, retour au début sinon on conserve le compteur actuel
+        //vÃ©rification: si l'on est arrivÃ© Ã  la fin du mot de la clÃ© de chiffrage, retour au dÃ©but sinon on conserve le compteur actuel
         if (j == l)
         {
             j = 0;
@@ -45,7 +45,7 @@ void Chiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
             j = j;
         }
 
-        //récupération de la position de la lettre de la clé dans l'alphabet
+        //rÃ©cupÃ©ration de la position de la lettre de la clÃ© dans l'alphabet
         do
         {
             if (key[j] == chaineAlpha[i])
@@ -59,16 +59,16 @@ void Chiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
             }
         }while (i <= 25);
 
-        i = 0; //retour compteur de la chaine alpha à 0
+        i = 0; //retour compteur de la chaine alpha Ã  0
 
-        //récupération de la position de la lettre claire dans l'alphabet  + celle de la lettre chiffrée
+        //rÃ©cupÃ©ration de la position de la lettre claire dans l'alphabet  + celle de la lettre chiffrÃ©e
         do
         {
             if (caractere == chaineAlpha[i])
             {
                 x = i;//position lettre claire
 
-                //récupération de la position de la lettre chiffrée
+                //rÃ©cupÃ©ration de la position de la lettre chiffrÃ©e
                 if ( (x + z) > 25) //cas particulier lorsque l'addition est plus grande que 25
                 {
                     y = x + z;
@@ -78,27 +78,27 @@ void Chiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
                 {
                     y = x + z;
                 }
-                //écriture de la lettre chiffrée dans le fichier chiffré
+                //Ã©criture de la lettre chiffrÃ©e dans le fichier chiffrÃ©
                 fputc(chaineAlpha[y], texteDest);
                 i = 26;//pour sortir de la boucle
-                j++;//augmentation du compteur de la clé de chiffrage pour la prochaine lettre à analyser
+                j++;//augmentation du compteur de la clÃ© de chiffrage pour la prochaine lettre Ã  analyser
             }
             else
             {
                 if(i == 25)
                 {
-                fputc(caractere, texteDest);//cas particulier pour les caractères spéciaux qui sont recopiés tel quel
+                fputc(caractere, texteDest);//cas particulier pour les caractÃ¨res spÃ©ciaux qui sont recopiÃ©s tel quel
                 i = 26;
                 }
                 else
                 {
-                    i++;//augmentation compteur chaine alphabétique pour continuer la comparaison si pas de correspondance avant
+                    i++;//augmentation compteur chaine alphabÃ©tique pour continuer la comparaison si pas de correspondance avant
                 }
             }
         }while(i <= 25);
-    }while (caractere != EOF);//EOF identifie la fin du fichier analysé
+    }while (caractere != EOF);//EOF identifie la fin du fichier analysÃ©
 }
-//fonction de dechiffrage où l'on indique: fichier source analysé + fichier de destination pour le texte clair + clé de chiffrement
+//fonction de dechiffrage oÃ¹ l'on indique: fichier source analysÃ© + fichier de destination pour le texte clair + clÃ© de chiffrement
 void DeChiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
 {
     char chaineAlpha[26] = "abcdefghijklmnopqrstuvwxyz";
@@ -111,14 +111,14 @@ void DeChiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
 
     do
     {
-        //recuperation d'un caractère du texte source passé en minuscule pour analyse
+        //recuperation d'un caractÃ¨re du texte source passÃ© en minuscule pour analyse
         caractere = fgetc(texteSource);
         caractere = tolower(caractere);
 
-        //réinitialisation du compteur i à 0 dans la boucle do
+        //rÃ©initialisation du compteur i Ã  0 dans la boucle do
         i = 0;
 
-        //vérification: si l'on est arrivé à la fin du mot de la clé de chiffrage, retour au début sinon on conserve le compteur actuel
+        //vÃ©rification: si l'on est arrivÃ© Ã  la fin du mot de la clÃ© de chiffrage, retour au dÃ©but sinon on conserve le compteur actuel
         if (j == l)
         {
             j = 0;
@@ -128,7 +128,7 @@ void DeChiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
             j = j;
         }
 
-        //récupération de la position de la lettre de la clé dans l'alphabet
+        //rÃ©cupÃ©ration de la position de la lettre de la clÃ© dans l'alphabet
         do
         {
             if (key[j] == chaineAlpha[i])
@@ -142,17 +142,17 @@ void DeChiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
             }
         }while (i <= 25);
 
-        i = 0;//retour compteur de la chaine alpha à 0
+        i = 0;//retour compteur de la chaine alpha Ã  0
 
-        //récupération de la position de la lettre chiffrée dans l'alphabet  + celle de la lettre claire
+        //rÃ©cupÃ©ration de la position de la lettre chiffrÃ©e dans l'alphabet  + celle de la lettre claire
         do
         {
             if (caractere == chaineAlpha[i])
             {
-                y = i;//position lettre chiffrée
+                y = i;//position lettre chiffrÃ©e
 
-                //récupération de la position de la lettre claire
-                if ((y - z) < 0) //cas particulier lorsque la soustraction est inférieure à 0
+                //rÃ©cupÃ©ration de la position de la lettre claire
+                if ((y - z) < 0) //cas particulier lorsque la soustraction est infÃ©rieure Ã  0
                 {
                     x = y - z;
 
@@ -162,53 +162,53 @@ void DeChiffrage(FILE *texteSource, FILE *texteDest, char key[], int l)
                 {
                     x = y - z;
                 }
-                //écriture de la lettre claire dans le fichier clair
+                //Ã©criture de la lettre claire dans le fichier clair
                 fputc(chaineAlpha[x], texteDest);
                 i = 26;//pour sortir de la boucle
-                j++;//augmentation du compteur de la clé de chiffrage pour la prochaine lettre à analyser
+                j++;//augmentation du compteur de la clÃ© de chiffrage pour la prochaine lettre Ã  analyser
             }
             else
             {
                 if(i == 25)
                 {
-                fputc(caractere, texteDest);//cas particulier pour les caractères spéciaux qui sont recopiés tel quel
+                fputc(caractere, texteDest);//cas particulier pour les caractÃ¨res spÃ©ciaux qui sont recopiÃ©s tel quel
                 i++;
                 }
                 else
                 {
-                    i++;//augmentation compteur chaine alphabétique pour continuer la comparaison si pas de correspondance avant
+                    i++;//augmentation compteur chaine alphabÃ©tique pour continuer la comparaison si pas de correspondance avant
                 }
             }
         }while(i <= 25);
-    }while (caractere != EOF);//EOF identifie la fin du fichier analysé
+    }while (caractere != EOF);//EOF identifie la fin du fichier analysÃ©
 }
 
 int main()
 {
     FILE* texteClair = NULL;//pour ouvrir le fichier contenant le message clair
-    FILE* texteChiff = NULL;//pour ouvrir le fichier contenant le message chiffré
-    FILE* texteKey = NULL;//pour ouvrir le fichier contenant la clé de chiffrage
-    char key[LIMITE]="";//chaine de caractere avec une taille limite Constante définie en début de code: ici 100 Max
-    int l = 0;//va récupérer la longueur de la clé de chiffrage
+    FILE* texteChiff = NULL;//pour ouvrir le fichier contenant le message chiffrÃ©
+    FILE* texteKey = NULL;//pour ouvrir le fichier contenant la clÃ© de chiffrage
+    char key[LIMITE]="";//chaine de caractere avec une taille limite Constante dÃ©finie en dÃ©but de code: ici 100 Max
+    int l = 0;//va rÃ©cupÃ©rer la longueur de la clÃ© de chiffrage
 
-    //récupération de la clé de chiffrage
+    //rÃ©cupÃ©ration de la clÃ© de chiffrage
     texteKey = fopen("key.txt", "r");
     fgets(key, LIMITE, texteKey);
     fclose(texteKey);
 
-    //récupération de la taille de la clé
+    //rÃ©cupÃ©ration de la taille de la clÃ©
     l = strlen(key);
 
     switch(Menu())
     {
         case 1:
-            //ouverture des fichiers: pour le chiffrage message claire en lecture et message chiffré en écriture (avec suppression du contenu précédent)
+            //ouverture des fichiers: pour le chiffrage message claire en lecture et message chiffrÃ© en Ã©criture (avec suppression du contenu prÃ©cÃ©dent)
             texteClair = fopen("lettre.txt", "r");
             texteChiff = fopen("lettreChiffre.txt", "w+");
 
             if (texteClair != NULL && texteChiff != NULL)//test bonne ouverture des fichiers avant action
             {
-                //appel de ma fonction en précisant: fichier source + fichier destination + clé de chiffrage + taille de la clé de chiffrage
+                //appel de ma fonction en prÃ©cisant: fichier source + fichier destination + clÃ© de chiffrage + taille de la clÃ© de chiffrage
                 Chiffrage(texteClair, texteChiff, key, l);
                 printf("Le chiffrage est effectif!\n");
             }
@@ -225,7 +225,7 @@ int main()
 
             if (texteClair != NULL && texteChiff != NULL)
             {
-                //appel de ma fonction en précisant: fichier source + fichier destination + clé de chiffrage + taille de la clé de chiffrage
+                //appel de ma fonction en prÃ©cisant: fichier source + fichier destination + clÃ© de chiffrage + taille de la clÃ© de chiffrage
                 DeChiffrage(texteChiff, texteClair, key, l);
                 printf("Le dechiffrage est effectif!\n");
             }
