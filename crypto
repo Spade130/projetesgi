@@ -1,0 +1,123 @@
+import argparse
+from os import urandom
+
+parser = argparse.ArgumentParser(prog="python3 cbc.py", description = "programme de chiffrement cbc")
+parser.add_argument("clearfile", type=str, help="le fichier à chiffrer")
+#parser.add_argument("--mode", type
+args = parser.parse_args()
+pathclear = args.clearfile
+
+#Defini un IV de la meme taille de bloc (128bits)
+def IV():
+    iv = urandom(16)    
+    return iv
+
+#Verifie que le fichier est bien un multiple de 128 bits, sinon padding
+def SizeFile(pathclear):
+    clearfile = open(pathclear, "rb")
+    size = len(clearfile.read())
+    clearfile.close()
+    if size % 16 != 0:
+        pading = urandom(16 - (size % 16))
+        clearfile = open(path, "ab")
+        clearfile.write(pading)
+        clearfile.close()
+    return 16 - (size % 16)
+
+def Encrypt(pathclear, pathencrypt, iv, key, pad):
+    clearfile = open(pathclear, "rb")
+    endfile = False
+    i = 0
+    bloc = []
+    encryptbloc = []
+    encryptfile.write(iv ^ key)
+    while endfile == False:
+        bloc.append(clearfile.read(16))
+        if len(bloc[i]) == 0:
+            endfile = True
+        elif i == 0:
+            encryptbloc.append(iv ^ bloc[i])
+            encryptbloc[i] = encryptbloc[i] ^ key
+            i += 1
+        else:
+            encryptbloc.append(encryptbloc[i - 1] ^ bloc[i])
+            encryptbloc[i] = encryptbloc[i] ^ key
+            i += 1
+    clearfile.close()
+    encryptfile = open(pathencrypt, "wb")
+    for a in range(0, i):
+        encryptfile.write(encryptbloc[a])
+    encryptfile.close()
+
+def Decrypt(pathclear, pathencrypt, key):
+    encryptfile = open(pathencrypt, "rb")
+    iv = encryptfile.read(16) ^ key
+    endfile = False
+    i = 0
+    while endfile == False:
+        bloc[i] = encryptfile.read(16)
+        if len(bloc[i]) == 0:
+            endfile = True
+        elif i == 0:
+            clearbloc[i] = bloc[i] ^ key
+            clearbloc[i] = iv ^ clearbloc[i]
+            i += 1
+        else:
+            clearbloc[i] = bloc[i] ^ key
+            clearbloc[i] = bloc[i-1] ^ clearbloc[i]
+            i += 1
+    encryptfile.close()
+    clearfile = open(pathclear, "wb")
+    for compteur in range(0, i):
+        clearfile.write(clearbloc[a])
+    clearfile.close()
+             
+
+#Fonction d'authentification
+def authentification(annuaire, file_path):
+    count_p = 0
+    count_l = 0
+    ok_pass = False
+    ok_login = False
+
+    #Demande du login et vérification de son existence: 5 tentatives
+    while count_l < 5 and ok_login == False:        
+        login = input("Veuillez vous connecter:\nlogin: ")
+        ok_login = login_exist(login, annuaire)
+        #Login existe donc demande de mot de passe: 3 tentatives
+        if ok_login == True:            
+            while count_p < 3 and ok_pass == False:
+                password = getpass.getpass("password: ")
+                ok_pass = password_ok(login, annuaire, password)
+                #si mot de passe OK, renvoit sur le login
+                if ok_pass == True:
+                    return login
+                #Sinon icrémente le nombre d'essai
+                else:
+                    count_p += 1
+                    print("Mauvais mot de passe")
+            #Trop d'échecs password
+            print("3 echecs, au revoir")
+        else:
+            print("Le login n'existe pas")
+            count_l += 1
+    #trop d'échecs login / test le nombre de tentative login pour ne pas afficher le message si c'est un echec de password
+    if count_l >= 4:
+        print("5 echecs de login, au revoir")
+    return 0
+
+#Fonction pour vérifier si un login existe
+def login_exist(login, annuaire):
+    for i in annuaire.keys():
+        if i == login:
+            return True
+    return False
+
+#Fonction de vérification de mot de passe
+def password_ok(login, annuaire, password):
+    password_safe = hash_password(password)
+    if password_safe == annuaire[login]:
+        return True
+    else:
+        return False
+
