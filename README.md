@@ -1,2 +1,0 @@
-# projetesgi
-ProjetBotIrcESGI
